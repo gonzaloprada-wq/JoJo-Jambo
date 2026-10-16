@@ -13,6 +13,7 @@ public class GruntMovement : MonoBehaviour
     private int salud = 2;
     public Boolean alive = true;
 
+    
     private Animator animator;
 
     void Start()

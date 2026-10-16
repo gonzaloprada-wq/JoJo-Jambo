@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,6 +12,9 @@ public class JhonMovement1 : MonoBehaviour
     public int coins;
     private int salud = 5;
 
+    public TextMeshProUGUI textMonedas;
+    public TextMeshProUGUI textVidas;
+
     public Boolean alive = true;
 
     private float horizontal;
@@ -22,6 +26,9 @@ public class JhonMovement1 : MonoBehaviour
     {
         rb2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        ActualizaHUD();
+
+
     }
 
     void Update()
@@ -90,19 +97,28 @@ public class JhonMovement1 : MonoBehaviour
         if (collision.CompareTag("Coin"))
         {
             coins++;
+            ActualizaHUD();
+
             Destroy(collision.gameObject);
         }
+        if (collision.CompareTag("shelter")) {
 
-   
+
+            SceneManager.LoadScene("Fase dos");
+
+
+        }
+
+
     }
 
     public void Hit()
     {
+        
         if (alive)
         {
             salud--;
-
-
+            ActualizaHUD();
 
             if (salud <= 0)
             {
@@ -119,6 +135,13 @@ public class JhonMovement1 : MonoBehaviour
                 
             }
         }
+
+        
+    }
+    private void ActualizaHUD()
+    {
+        textVidas.text = salud.ToString();
+        textMonedas.text = coins.ToString();
     }
 
     public void execute_death()
